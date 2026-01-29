@@ -15,3 +15,6 @@
 ###< symfony/asset-mapper ###
 
 .DS_Store
+
+# Jetbrains tools
+.idea/
