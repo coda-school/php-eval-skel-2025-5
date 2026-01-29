@@ -5,43 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58dcac4f-2d9d-4589-8642-0bd73cb1cc3f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056/storage_v2/_src_/database/app.IXoBAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056/storage_v2/_src_/database/app.IXoBAA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056/storage_v2/_src_/database/app.IXoBAA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/2b48d510-05b4-4b78-9fdd-c608d94eb056/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/d7993f4a-615d-4fcc-a451-c73e4db71244.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/d7993f4a-615d-4fcc-a451-c73e4db71244/storage_v2/_src_/database/app.IXoBAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/d7993f4a-615d-4fcc-a451-c73e4db71244/storage_v2/_src_/database/app.IXoBAA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/d7993f4a-615d-4fcc-a451-c73e4db71244/storage_v2/_src_/database/app.IXoBAA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/d7993f4a-615d-4fcc-a451-c73e4db71244/storage_v2/_src_/database/app.IXoBAA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php-eval-skel-2025-4.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20260129094021.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20260129094733.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20260129094907.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20260129095238.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/FeedController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Follows.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Tweets.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Inc/Database.inc.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Inc/page.inc.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Install/DB.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Install/database_init.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Install/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/FollowsRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/TweetsRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/feed/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,29 +115,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Merging main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;,
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql",
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -191,7 +155,7 @@
       <updated>1769511464375</updated>
       <workItem from="1769511465632" duration="13446000" />
       <workItem from="1769676334100" duration="10721000" />
-      <workItem from="1769694629966" duration="2132000" />
+      <workItem from="1769694629966" duration="3341000" />
     </task>
     <servers />
   </component>
