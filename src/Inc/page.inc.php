@@ -1,6 +1,6 @@
 <?php
 
-class HTMLPage
+/*class HTMLPage
 {
     private string $title;
     private array $heads = [];

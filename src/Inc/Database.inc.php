@@ -1,6 +1,6 @@
 <?php
 
-class DatabaseManager
+/*class DatabaseManager
 {
     private $pdo;
 
@@ -22,7 +22,7 @@ class DatabaseManager
      * @return array Un tableau 2D des résultats.
      * @throws PDOException Si une erreur survient lors de l'exécution de la requête.
      */
-    public function executeQuery(string $query, array $params = []): array
+    /*public function executeQuery(string $query, array $params = []): array
     {
         try {
             $stmt = $this->pdo->prepare($query);
@@ -40,7 +40,7 @@ class DatabaseManager
      * @return int Le nombre de lignes affectées.
      * @throws PDOException Si une erreur survient lors de l'exécution de la requête.
      */
-    public function executeUpdate(string $query, array $params = []): int
+    /*public function executeUpdate(string $query, array $params = []): int
     {
         try {
             $stmt = $this->pdo->prepare($query);
