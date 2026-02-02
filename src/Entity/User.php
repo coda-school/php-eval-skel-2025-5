@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[ORM\HasLifecycleCallbacks]
 class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -49,7 +50,7 @@ class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUse
     #[ORM\OneToMany(targetEntity: Tweets::class, mappedBy: 'author', orphanRemoval: true)]
     private Collection $tweets;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatarUrl = null;
 
     /**
@@ -306,5 +307,23 @@ class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUse
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $nowImmutable = new \DateTimeImmutable();
+        $nowMutable = new \DateTime();
+
+        if ($this->createdAt === null) {
+            $this->createdAt = $nowImmutable;
+        }
+
+        if (!isset($this->createdDate)) {
+            $this->createdDate = $nowMutable;
+        }
+
+        if (!isset($this->createdBy)) {
+            $this->createdBy = $this;
+        }
     }
 }
