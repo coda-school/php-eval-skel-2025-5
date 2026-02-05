@@ -1,38 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Swiffer - Connexion{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .theme-toggle1 {
+            background: transparent;
+            border: 2px solid var(--text);
+            color: var(--text);
+            border-radius: 25px;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .theme-toggle1:hover {
+            background: var(--text);
+            color: var(--bg-base);
+        }
+    </style>
+
+{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="login-card">
+        <h1 class="logo-text">Swiffer</h1>
+        <p class="welcome-text">Entrez dans la nouvelle ère du social.</p>
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
+        <form method="post">
+            {% if error %}
+                <div style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; padding: 10px; border-radius: 12px; margin-bottom: 20px; font-size: 0.85rem;">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            <div class="input-group">
+                <input type="email" value="{{ last_username }}" name="_username" id="username" placeholder="Email" autocomplete="email" required autofocus>
             </div>
-        {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
+            <div class="input-group">
+                <input type="password" name="_password" id="password" placeholder="Mot de passe" autocomplete="current-password" required>
             </div>
-        #}
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button type="submit" class="btn-login">Démarrer l'expérience</button>
+        </form>
+
+        <div class="signup-text">
+            Nouveau ici ? <a href="{{ path('app_register') }}">Créer un profil</a>
+            <button class="theme-toggle1" onclick="toggleTheme()">Changer Thème</button>
+        </div>
+        <script>
+            function toggleTheme() {
+                const root = document.documentElement;
+                root.hasAttribute("data-theme") ? root.removeAttribute("data-theme") : root.setAttribute("data-theme", "dark");
+            }</script>
+    </div>
 {% endblock %}
