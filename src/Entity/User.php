@@ -213,12 +213,12 @@ class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUse
         return $this;
     }
 
-    public function getAvatarUrl(): ?string
+    public function getAvatarUrl(): string
     {
         return $this->avatarUrl;
     }
 
-    public function setAvatarUrl(?string $avatarUrl): static
+    public function setAvatarUrl(string $avatarUrl): static
     {
         $this->avatarUrl = $avatarUrl;
 
