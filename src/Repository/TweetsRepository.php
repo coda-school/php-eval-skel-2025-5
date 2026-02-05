@@ -35,7 +35,7 @@ class TweetsRepository extends ServiceEntityRepository
                 'WITH',
                 'f.following = a AND f.followers = :user'
             )
-            ->where('f.id IS NOT NULL OR a != :user')
+            ->where('f.id IS NOT NULL OR a = :user')
             ->setParameter('user', $user)
             ->orderBy('t.createdAt', 'DESC')
             ->setMaxResults($limit)
@@ -43,6 +43,7 @@ class TweetsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
 
 
 //    /**

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class TweetController extends AbstractController
+class TweetsController extends AbstractController
 {
     #[Route('/tweet/{id}/delete', name: 'tweet_delete', methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
