@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>My Inbox</h1>
+
+        {% for message in user.receivedMessages %}
+            <div class="message-card" style="border:1px solid #ddd; padding:10px; margin-bottom:10px;">
+                <strong>From:</strong> {{ message.sender.email }} <br>
+                <p>{{ message.content }}</p>
+                <small>{{ message.createdAt|date('Y-m-d H:i') }}</small>
+            </div>
+        {% else %}
+            <p>No messages yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
