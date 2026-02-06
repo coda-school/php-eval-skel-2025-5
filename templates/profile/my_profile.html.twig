@@ -11,8 +11,8 @@
         <div class="avatar"></div>
 
         <div class="profile-info">
-            <h2>@{{ app.user.username|default('username') }}</h2>
-            <p>Explorateur du web et passionné de design. </p>
+            <h2>@{{ user.username|default('username') }}</h2>
+            <p>Explorateur du web et passionné de design.</p>
 
             <div class="stats">
                 <div class="stat"><strong>120</strong> <span>Abonnements</span></div>
@@ -21,9 +21,17 @@
 
             <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
                 <h3 style="font-size: 1.1rem; margin-bottom: 15px;">Derniers Posts</h3>
-                <div style="padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--border);">
-                    <p style="margin:0; font-size: 0.9rem; opacity: 0.8;">test</p>
-                </div>
+
+                {% for tweet in tweets %}
+                    <div style="padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 10px;">
+                        <p style="margin:0; font-size: 0.9rem; opacity: 0.8;">{{ tweet.content }}</p>
+                        <div style="margin-top: 8px; font-size: 0.75rem; color: var(--muted);">
+                            {{ tweet.createdAt|date('d/m/Y H:i') }}
+                        </div>
+                    </div>
+                {% else %}
+                    <p style="opacity: 0.5; font-style: italic;">Vous n'avez pas encore posté de swiff.</p>
+                {% endfor %}
             </div>
         </div>
     </main>
