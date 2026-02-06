@@ -32,7 +32,7 @@
             </div>
             <img src="{{ asset('images/logo.png') }}" alt="Swiffer" class="logo">
             <nav>
-                <a href="{{ path('app_home') }}"><i class="fa-solid fa-house"></i> Accueil</a>
+                <a href="{{ path('app_feed') }}"><i class="fa-solid fa-house"></i> Accueil</a>
                 <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Explorer</a>
                 <a href="#"><i class="fa-regular fa-envelope"></i> Messages</a>
                 <a href="{{ path('app_profile') }}"><i class="fa-regular fa-user"></i> Profil</a>
@@ -48,10 +48,27 @@
 </div>
 
 <script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute("data-theme", "dark");
+        }
+    })();
+
     function toggleTheme() {
         const root = document.documentElement;
-        root.hasAttribute("data-theme") ? root.removeAttribute("data-theme") : root.setAttribute("data-theme", "dark");
+
+        if (root.hasAttribute("data-theme")) {
+            // Passage au mode clair
+            root.removeAttribute("data-theme");
+            localStorage.setItem('theme', 'light');
+        } else {
+            // Passage au mode sombre
+            root.setAttribute("data-theme", "dark");
+            localStorage.setItem('theme', 'dark');
+        }
     }
+
     function toggleMenu() {
         const sidebar = document.querySelector('.sidebar');
         const overlay = document.querySelector('.menu-overlay');

@@ -1,46 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FeedController!{% endblock %}
+{% block title %}Swiffer - Fil d'actualité{% endblock %}
 
 {% block body %}
-    <div class="feed">
-        <h1>Fil d’actualité</h1>
+    <div class="tweet-box">
+        <form method="post">
 
-        {% if app.user %}
-            <div class="tweet-form">
-                {{ form_start(tweetForm) }}
-                {{ form_widget(tweetForm) }}
-                <button type="submit">Tweeter</button>
-                {{ form_end(tweetForm) }}
+            <textarea
+                id="tweet_content"
+                name="content"
+                rows="3"
+                placeholder="Quoi de neuf ?"
+                maxlength="280"
+                required
+            ></textarea>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+
+                <small id="char-count" style="color: var(--muted);">0 / 280</small>
+
+                <button type="submit" class="tweet-btn" style="width: 120px;">Poster</button>
             </div>
-            <hr>
-        {% endif %}
+        </form>
+    </div>
 
+    <div id="tweets-feed">
+        {% for tweet in tweets %}
+            <div class="post">
+                <strong>@{{ tweet.author.username }}</strong>
+                <p>{{ tweet.content }}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <small style="color: var(--muted);">{{ tweet.createdAt|date('d/m H:i') }}</small>
 
-        {% if tweets is empty %}
-            <p>Aucun tweet à afficher.</p>
-        {% else %}
-            {% for tweet in tweets %}
-                <div class="tweet">
-                    <p>
-                        <strong>{{ tweet.author.username }}</strong>
-                        <small>– {{ tweet.createdAt|date('d/m/Y H:i') }}</small>
-                    </p>
-
-                    <p>{{ tweet.content }}</p>
-
-                    {# Bouton supprimer (uniquement si c’est ton tweet) #}
                     {% if app.user and tweet.author == app.user %}
-                        <form method="post"
-                              action="{{ path('tweet_delete', { id: tweet.id }) }}"
-                              onsubmit="return confirm('Supprimer ce tweet ?');">
-                            <button type="submit">Supprimer</button>
+                        <form method="post" action="{{ path('app_tweet_delete', {'id': tweet.id}) }}" onsubmit="return confirm('Supprimer ce tweet ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tweet.id) }}">
+                            <button type="submit" style="background:none; border:none; color:#ef4444; cursor:pointer;">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
                         </form>
                     {% endif %}
                 </div>
-                <hr>
-            {% endfor %}
-        {% endif %}
+            </div>
+        {% else %}
+            <div class="post">
+                <p>Aucun tweet trouvé. Ton fil d'actualité est bien vide !</p>
+            </div>
+        {% endfor %}
     </div>
-{% endblock %}
 
+
+    <script>
+        const textarea = document.getElementById('tweet_content');
+        const counter = document.getElementById('char-count');
+
+        textarea.addEventListener('input', () => {
+            const count = textarea.value.length;
+            counter.textContent = `${count} / 280`;
+
+            if (count >= 280) {
+                counter.style.color = "#ef4444";
+            } else if (count >= 250) {
+                counter.style.color = "#f59e0b";
+            } else {
+                counter.style.color = "var(--muted)";
+            }
+        });
+    </script>
+{% endblock %}

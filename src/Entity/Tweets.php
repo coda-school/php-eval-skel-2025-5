@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TweetsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TweetsRepository::class)]
 class Tweets
@@ -14,6 +15,11 @@ class Tweets
     private ?int $id = null;
 
     #[ORM\Column(length: 280)]
+    #[Assert\NotBlank(message: "Le contenu du tweet ne peut pas être vide.")]
+    #[Assert\Length(
+        max: 280,
+        maxMessage: "Votre tweet est trop long ({{ limit }} caractères maximum)."
+    )]
     private ?string $content = null;
 
     #[ORM\Column]
@@ -22,6 +28,14 @@ class Tweets
     #[ORM\ManyToOne(inversedBy: 'tweets')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
+
+    /**
+     * Le constructeur initialise la date de création automatiquement
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

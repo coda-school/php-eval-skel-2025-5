@@ -76,9 +76,31 @@
             <button class="theme-toggle1" onclick="toggleTheme()">Changer Thème</button>
         </div>
         <script>
+            (function() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                }
+            })();
+
             function toggleTheme() {
                 const root = document.documentElement;
-                root.hasAttribute("data-theme") ? root.removeAttribute("data-theme") : root.setAttribute("data-theme", "dark");
-            }</script>
+
+                if (root.hasAttribute("data-theme")) {
+                    root.removeAttribute("data-theme");
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    root.setAttribute("data-theme", "dark");
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            function toggleMenu() {
+                const sidebar = document.querySelector('.sidebar');
+                const overlay = document.querySelector('.menu-overlay');
+                if(sidebar) sidebar.classList.toggle('active');
+                if(overlay) overlay.classList.toggle('active');
+            }
+        </script>
     </div>
 {% endblock %}
