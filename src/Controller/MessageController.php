@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Entity\User;
 use App\Form\MessageType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,48 +15,44 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController extends AbstractController
 {
     #[Route('/messages', name: 'app_inbox')]
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
-        // Get the currently logged-in user
         $user = $this->getUser();
-
-        // Ensure user is logged in
         if (!$user) { return $this->redirectToRoute('app_login'); }
 
-        // TODO: In the twig template, we will loop through user.receivedMessages
+        // On récupère tous les utilisateurs pour pouvoir leur envoyer un message
+        $users = $userRepository->findAll();
+
         return $this->render('message/index.html.twig', [
             'user' => $user,
+            'users' => $users, // Pour la liste des contacts à gauche
         ]);
     }
 
     #[Route('/message/send/{id}', name: 'app_message_send')]
     public function send(User $recipient, Request $request, EntityManagerInterface $em): Response
     {
+        $user = $this->getUser();
+        if (!$user) { return $this->redirectToRoute('app_login'); }
+
         $message = new Message();
-        $form = $this->createForm(MessageType::class, $message);
+        // On peut soit utiliser un formulaire Symfony, soit traiter le POST manuellement
+        $content = $request->request->get('content');
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // 1. Set the Sender (You)
-            $message->setSender($this->getUser());
-
-            // 2. Set the Receiver (The person you clicked on)
+        if ($request->isMethod('POST') && $content) {
+            $message->setSender($user);
             $message->setReceiver($recipient);
-
-            // 3. Set the Timestamp
+            $message->setContent($content);
             $message->setCreatedAt(new \DateTimeImmutable());
 
-            // 4. Save to Database
             $em->persist($message);
             $em->flush();
 
-            $this->addFlash('success', 'Message sent!');
+            $this->addFlash('success', 'Message envoyé !');
             return $this->redirectToRoute('app_inbox');
         }
 
         return $this->render('message/send.html.twig', [
-            'form' => $form->createView(),
             'recipient' => $recipient
         ]);
     }

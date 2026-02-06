@@ -1,17 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <h1>My Inbox</h1>
-
-        {% for message in user.receivedMessages %}
-            <div class="message-card" style="border:1px solid #ddd; padding:10px; margin-bottom:10px;">
-                <strong>From:</strong> {{ message.sender.email }} <br>
-                <p>{{ message.content }}</p>
-                <small>{{ message.createdAt|date('Y-m-d H:i') }}</small>
+    <main class="messages">
+        <div class="conversations">
+            <div class="conv-header" style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <strong>Conversations</strong>
             </div>
-        {% else %}
-            <p>No messages yet.</p>
-        {% endfor %}
-    </div>
+
+            {% for message in user.receivedMessages %}
+                <a href="{{ path('app_message_send', {'id': message.sender.id}) }}" class="conv-link" style="text-decoration: none; color: inherit;">
+                    <div class="conv">
+                        <strong>@{{ message.sender.username }}</strong><br>
+                        <span style="opacity:0.6">{{ message.content|slice(0, 20) }}...</span>
+                    </div>
+                </a>
+            {% else %}
+                <div class="conv" style="opacity: 0.5; padding: 15px;">Aucun message reçu</div>
+            {% endfor %}
+        </div>
+
+        <div class="chat">
+            <div class="chat-header">
+                {% if recipient is defined %}
+                    <strong>Discussion avec @{{ recipient.username }}</strong>
+                {% else %}
+                    <strong>Messagerie</strong>
+                {% endif %}
+            </div>
+
+            <div class="chat-body">
+                {% for message in user.receivedMessages %}
+                    <div class="msg other">
+                        <small>{{ message.sender.username }}</small><br>
+                        {{ message.content }}
+                    </div>
+                {% endfor %}
+
+                {% for message in user.sentMessages %}
+                    <div class="msg me">
+                        {{ message.content }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="chat-input">
+                {% if recipient is defined %}
+                    <form action="{{ path('app_message_send', {'id': recipient.id}) }}" method="post" style="display: flex; gap: 10px; width: 100%;">
+                        <input type="text" name="content" placeholder="Écrire à @{{ recipient.username }}..." required style="flex-grow: 1;">
+                        <button type="submit" class="btn-send" style="background: none; border: none; color: #1d9bf0; cursor: pointer;">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                {% else %}
+                    <p style="opacity: 0.5; font-size: 0.9em; text-align: center; width: 100%;">
+                        Sélectionnez un contact à gauche pour discuter
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
 {% endblock %}

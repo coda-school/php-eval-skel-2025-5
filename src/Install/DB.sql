@@ -185,3 +185,40 @@ INSERT INTO tweets (user_id, content) VALUES
 -- Tina (2)
 (20, 'Notifications système'),
 (20, 'MP bientôt dispo');
+
+
+-- =========================================
+-- TABLE MESSAGES (MP)
+-- =========================================
+
+CREATE TABLE message (
+                         id BIGINT PRIMARY KEY AUTO_INCREMENT, -- Ou SERIAL si PostgreSQL
+                         sender_id BIGINT NOT NULL,
+                         receiver_id BIGINT NOT NULL,
+                         content TEXT NOT NULL,
+                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                         FOREIGN KEY (sender_id) REFERENCES users (id) ON DELETE CASCADE,
+                         FOREIGN KEY (receiver_id) REFERENCES users (id) ON DELETE CASCADE
+);
+-- =========================================
+-- INSERT MESSAGES (Conversations de test)
+-- =========================================
+
+INSERT INTO message (sender_id, receiver_id, content, created_at) VALUES
+(1, 2, 'Salut Bob ! Tu en es où sur le projet Symfony ?', NOW() - INTERVAL '1 hour'),
+(2, 1, 'Hello Alice ! Je viens de finir de corriger les entités. Ça avance bien.', NOW() - INTERVAL '50 minute'),
+(1, 2, 'Super ! On se fait une session de debug cet après-midi ?', NOW() - INTERVAL '45 minute'),
+(2, 1, 'Carrément, disons 14h sur Discord.', NOW() - INTERVAL '40 minute'),
+
+(3, 1, 'Dis Alice, tu préfères Tailwind ou Bootstrap pour le style ?', NOW() - INTERVAL '2 hour'),
+(1, 3, 'Tailwind sans hésiter, c''est beaucoup plus flexible !', NOW() - INTERVAL '1 hour 50 minute'),
+
+(19, 20, 'Le seed SQL est enfin prêt. Tu peux tester les MP ?', NOW() - INTERVAL '30 minute'),
+(20, 19, 'Je regarde ça tout de suite ! Je t''envoie un message si je vois un bug.', NOW() - INTERVAL '25 minute'),
+(19, 20, 'Nickel, merci Tina.', NOW() - INTERVAL '20 minute'),
+
+(5, 1, 'Ton design est vraiment top, bien joué !', NOW() - INTERVAL '5 hour'),
+(13, 15, 'Tu as pensé à hacher les mots de passe avant le commit ?', NOW() - INTERVAL '4 hour'),
+(15, 13, 'Oui, j''ai utilisé password_hash() en PHP, c''est sécurisé.', NOW() - INTERVAL '3 hour');
+
+CREATE INDEX idx_messages_conversation ON message(sender_id, receiver_id, created_at);
