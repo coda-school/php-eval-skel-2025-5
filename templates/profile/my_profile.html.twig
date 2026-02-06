@@ -11,12 +11,61 @@
         <div class="avatar"></div>
 
         <div class="profile-info">
-            <h2>@{{ user.username|default('username') }}</h2>
-            <p>Explorateur du web et passionné de design.</p>
+            {# Formulaire pour changer le pseudo #}
+            <form action="{{ path('app_profile_update_username') }}" method="POST" style="margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">@</span>
+                <input
+                    type="text"
+                    name="username"
+                    value="{{ user.username }}"
+                    required
+                    style="background: transparent; border: none; border-bottom: 1px solid transparent; color: white; font-size: 1.5rem; font-weight: bold; outline: none; width: auto; transition: border-color 0.3s;"
+                    onfocus="this.style.borderBottomColor='var(--border)'"
+                    onblur="this.style.borderBottomColor='transparent'"
+                >
+                <button type="submit" style="background: none; border: none; color: var(--primary); cursor: pointer; padding: 0;">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+            </form>
+            <form action="{{ path('app_profile_update_email') }}" method="POST" style="margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-envelope" style="color: var(--muted); font-size: 0.9rem;"></i>
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ user.email }}"
+                    required
+                    style="background: transparent; border: none; border-bottom: 1px solid transparent; color: var(--muted); font-size: 0.9rem; outline: none; width: 100%; transition: border-color 0.3s;"
+                    onfocus="this.style.borderBottomColor='var(--border)'"
+                    onblur="this.style.borderBottomColor='transparent'"
+                >
+                <button type="submit" style="background: none; border: none; color: var(--primary); cursor: pointer; padding: 0;">
+                    <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                </button>
+            </form>
+
+            {# Formulaire dynamique pour la bio #}
+            <form action="{{ path('app_profile_update_bio') }}" method="POST" style="margin-bottom: 20px;">
+                <textarea
+                    name="bio"
+                    maxlength="255"
+                    placeholder="Décrivez-vous en quelques mots..."
+                    style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 8px; padding: 10px; resize: none; font-family: inherit; font-size: 0.9rem; outline: none;"
+                >{{ user.bio }}</textarea>
+
+                <button type="submit" class="tweet-btn" style="width: auto; padding: 0 15px; font-size: 0.75rem; margin-top: 8px; height: 30px; line-height: 30px;">
+                    Enregistrer la bio
+                </button>
+            </form>
 
             <div class="stats">
-                <div class="stat"><strong>120</strong> <span>Abonnements</span></div>
-                <div class="stat"><strong>340</strong> <span>Abonnés</span></div>
+                <div class="stat">
+                    <strong>{{ user.following|length }}</strong>
+                    <span>Abonnements</span>
+                </div>
+                <div class="stat">
+                    <strong>{{ user.followers|length }}</strong>
+                    <span>Abonnés</span>
+                </div>
             </div>
 
             <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
@@ -25,8 +74,14 @@
                 {% for tweet in tweets %}
                     <div style="padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 10px;">
                         <p style="margin:0; font-size: 0.9rem; opacity: 0.8;">{{ tweet.content }}</p>
-                        <div style="margin-top: 8px; font-size: 0.75rem; color: var(--muted);">
-                            {{ tweet.createdAt|date('d/m/Y H:i') }}
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                            <small style="font-size: 0.75rem; color: var(--muted);">
+                                {{ tweet.createdAt|date('d/m/Y H:i') }}
+                            </small>
+
+                            <a href="{{ path('app_tweet_edit', {'id': tweet.id}) }}" style="color: var(--primary); font-size: 0.8rem; text-decoration: none;">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
                         </div>
                     </div>
                 {% else %}

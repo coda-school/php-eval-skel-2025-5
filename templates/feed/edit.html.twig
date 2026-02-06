@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon Swiff{% endblock %}
+
+{% block body %}
+    <main class="profile">
+        <h2 style="margin-bottom: 20px;">Modifier votre post</h2>
+
+        <div class="tweet-box">
+            <form method="post">
+                <textarea
+                    id="tweet_content"
+                    name="content"
+                    rows="5"
+                    maxlength="280"
+                    required
+                    style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: 12px; padding: 15px; outline: none; resize: none;"
+                >{{ tweet.content }}</textarea>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <small id="edit-char-count" style="color: var(--muted);">
+                        {{ tweet.content|length }} / 280
+                    </small>
+
+                    <div style="display: flex; gap: 10px;">
+                        <a href="{{ path('app_feed') }}" class="tweet-btn" style="background: transparent; border: 1px solid var(--border); text-align: center; text-decoration: none; line-height: 40px;">
+                            Annuler
+                        </a>
+                        <button type="submit" class="tweet-btn" style="width: 120px;">
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const textarea = document.getElementById('tweet_content');
+        const counter = document.getElementById('edit-char-count');
+
+        textarea.addEventListener('input', () => {
+            const count = textarea.value.length;
+            counter.textContent = `${count} / 280`;
+            counter.style.color = count >= 280 ? "#ef4444" : (count >= 250 ? "#f59e0b" : "var(--muted)");
+        });
+    </script>
+{% endblock %}

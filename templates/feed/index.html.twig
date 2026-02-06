@@ -5,7 +5,6 @@
 {% block body %}
     <div class="tweet-box">
         <form method="post">
-
             <textarea
                 id="tweet_content"
                 name="content"
@@ -16,9 +15,7 @@
             ></textarea>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-
                 <small id="char-count" style="color: var(--muted);">0 / 280</small>
-
                 <button type="submit" class="tweet-btn" style="width: 120px;">Poster</button>
             </div>
         </form>
@@ -33,12 +30,18 @@
                     <small style="color: var(--muted);">{{ tweet.createdAt|date('d/m H:i') }}</small>
 
                     {% if app.user and tweet.author == app.user %}
-                        <form method="post" action="{{ path('app_tweet_delete', {'id': tweet.id}) }}" onsubmit="return confirm('Supprimer ce tweet ?');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tweet.id) }}">
-                            <button type="submit" style="background:none; border:none; color:#ef4444; cursor:pointer;">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </form>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <a href="{{ path('app_tweet_edit', {'id': tweet.id}) }}" style="color: var(--primary); text-decoration: none;">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                            <form method="post" action="{{ path('app_tweet_delete', {'id': tweet.id}) }}" onsubmit="return confirm('Supprimer ce tweet ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tweet.id) }}">
+                                <button type="submit" style="background:none; border:none; color:#ef4444; cursor:pointer; padding:0;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -48,7 +51,6 @@
             </div>
         {% endfor %}
     </div>
-
 
     <script>
         const textarea = document.getElementById('tweet_content');

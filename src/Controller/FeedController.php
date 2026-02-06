@@ -42,15 +42,33 @@ final class FeedController extends AbstractController
         ]);
     }
 
+    #[Route('/feed/edit/{id}', name: 'app_tweet_edit', methods: ['GET', 'POST'])]
+    public function edit(Tweets $tweet, Request $request, EntityManagerInterface $em): Response
+    {
+        if ($tweet->getAuthor() !== $this->getUser()) {
+            throw $this->createAccessDeniedException("Vous ne pouvez pas modifier ce tweet.");
+        }
+
+        if ($request->isMethod('POST')) {
+            $content = $request->request->get('content');
+            if ($content) {
+                $tweet->setContent($content);
+                $em->flush();
+                return $this->redirectToRoute('app_feed');
+            }
+        }
+
+        return $this->render('feed/edit.html.twig', [
+            'tweet' => $tweet,
+        ]);
+    }
 
     #[Route('/feed/delete/{id}', name: 'app_tweet_delete', methods: ['POST'])]
     public function delete(Tweets $tweet, EntityManagerInterface $em, Request $request): Response
     {
-
         if ($tweet->getAuthor() !== $this->getUser()) {
             throw $this->createAccessDeniedException("Vous ne pouvez pas supprimer ce tweet.");
         }
-
 
         if ($this->isCsrfTokenValid('delete'.$tweet->getId(), $request->request->get('_token'))) {
             $em->remove($tweet);
@@ -59,4 +77,27 @@ final class FeedController extends AbstractController
 
         return $this->redirectToRoute('app_feed');
     }
+    #[Route('/profile/update-email', name: 'app_profile_update_email', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function updateEmail(Request $request, EntityManagerInterface $em, UserRepository $userRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+        $newEmail = $request->request->get('email');
+
+        if ($newEmail && $newEmail !== $user->getEmail()) {
+            $existingUser = $userRepository->findOneBy(['email' => $newEmail]);
+
+            if ($existingUser) {
+                $this->addFlash('error', 'Cet email est déjà associé à un autre compte.');
+            } else {
+                $user->setEmail($newEmail);
+                $em->flush();
+                $this->addFlash('success', 'Email mis à jour !');
+            }
+        }
+
+        return $this->redirectToRoute('app_profile');
+    }
 }
+

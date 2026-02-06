@@ -44,12 +44,12 @@ CREATE INDEX idx_tweets_user_date ON tweets(user_id, created_at DESC);
 -- =========================================
 
 CREATE TABLE follows (
-follower_id BIGINT NOT NULL,
-followed_id BIGINT NOT NULL,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY (follower_id, followed_id),
-FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (followed_id) REFERENCES users(id) ON DELETE CASCADE
+                         follower_id BIGINT NOT NULL,
+                         following_id BIGINT NOT NULL,
+                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                         PRIMARY KEY (follower_id, following_id),
+                         FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
+                         FOREIGN KEY (following_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- =========================================
