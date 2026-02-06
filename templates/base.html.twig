@@ -59,11 +59,9 @@
         const root = document.documentElement;
 
         if (root.hasAttribute("data-theme")) {
-            // Passage au mode clair
             root.removeAttribute("data-theme");
             localStorage.setItem('theme', 'light');
         } else {
-            // Passage au mode sombre
             root.setAttribute("data-theme", "dark");
             localStorage.setItem('theme', 'dark');
         }

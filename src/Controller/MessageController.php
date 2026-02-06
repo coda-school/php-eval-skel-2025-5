@@ -20,12 +20,11 @@ class MessageController extends AbstractController
         $user = $this->getUser();
         if (!$user) { return $this->redirectToRoute('app_login'); }
 
-        // On récupère tous les utilisateurs pour pouvoir leur envoyer un message
         $users = $userRepository->findAll();
 
         return $this->render('message/index.html.twig', [
             'user' => $user,
-            'users' => $users, // Pour la liste des contacts à gauche
+            'users' => $users,
         ]);
     }
 
@@ -36,7 +35,6 @@ class MessageController extends AbstractController
         if (!$user) { return $this->redirectToRoute('app_login'); }
 
         $message = new Message();
-        // On peut soit utiliser un formulaire Symfony, soit traiter le POST manuellement
         $content = $request->request->get('content');
 
         if ($request->isMethod('POST') && $content) {

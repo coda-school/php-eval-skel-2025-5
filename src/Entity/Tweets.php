@@ -29,9 +29,6 @@ class Tweets
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
-    /**
-     * Le constructeur initialise la date de création automatiquement
-     */
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

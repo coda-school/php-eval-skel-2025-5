@@ -192,7 +192,7 @@ INSERT INTO tweets (user_id, content) VALUES
 -- =========================================
 
 CREATE TABLE message (
-                         id BIGINT PRIMARY KEY AUTO_INCREMENT, -- Ou SERIAL si PostgreSQL
+                         id BIGINT PRIMARY KEY AUTO_INCREMENT,
                          sender_id BIGINT NOT NULL,
                          receiver_id BIGINT NOT NULL,
                          content TEXT NOT NULL,
