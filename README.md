@@ -1,3 +1,67 @@
+# Swiffer - Projet Symfony Messagerie
+
+Ce projet est une plateforme de micro-blogging avec un système de messagerie privée intégré.
+
+## 🚀 Installation et Lancement
+
+1. **Démarrer les conteneurs :**
+   ```bash
+   docker compose up -d
+2. dépendances PHP
+docker compose exec php composer install
+3. mise à jours de la base de données
+docker compose exec php php bin/console doctrine:schema:update --force
+
+5. localhost:8081
+
+6. localhost/register
+   enter pseudo
+   entrer email
+   enter mots de passe
+   changer de thème
+
+8. login
+   enter email
+   enter mots de passe
+   changer de thème
+   
+10. home
+    Accueil
+    Explorer (off)
+    Messages
+    Profil
+    poster
+    swiff(tweet)
+    thème
+    
+12. message
+    nav bar
+    fonction pas terminer
+    
+14. Profil
+    Pseudo
+    email
+    description
+    abonner /abonnement
+    et dernier post
+    
+16. changer de thème
+    thème enregistrer sur toute les pages + bouton sur toutes les pages
+
+
+
+Une fois sur le feed(home) vous pouvez voir les swiff(tweet) ansi que les rédiger avec maximum 280 caractères. 
+Un menue burger vous permet d'acceder à la messagerie et au profil, vous pouvez aussi poster un swiff et changer de thème.
+La messagerie n'est pas fonctionelle.
+Dans le profil 
+Pseudo changeable
+email peux changer
+bio fonctionelle
+les abonnés et abonnements sont prix en compte 
+le dernier post est afficher sur le profil
+
+
+
 # Symfony Docker
 
 A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
@@ -49,3 +113,4 @@ Symfony Docker is available under the MIT License.
 ## Credits
 
 Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+
