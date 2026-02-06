@@ -54,4 +54,27 @@ class ProfileController extends AbstractController
 
         return $this->redirectToRoute('app_profile');
     }
+    #[\Symfony\Component\Routing\Attribute\Route('/profile/update-email', name: 'app_profile_update_email', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function updateEmail(Request $request, EntityManagerInterface $em, UserRepository $userRepository): Response
+    {
+        /** @var \app\Entity\User $user */
+        $user = $this->getUser();
+        $newEmail = $request->request->get('email');
+
+        if ($newEmail && $newEmail !== $user->getEmail()) {
+            $existingUser = $userRepository->findOneBy(['email' => $newEmail]);
+
+            if ($existingUser) {
+                $this->addFlash('error', 'Cet email est déjà associé à un autre compte.');
+            } else {
+                $user->setEmail($newEmail);
+                $em->flush();
+                $this->addFlash('success', 'Email mis à jour !');
+            }
+        }
+
+        return $this->redirectToRoute('app_profile');
+    }
 }
+

@@ -17,10 +17,11 @@ final class FeedController extends AbstractController
     #[Route('/', name: 'app_home')]
     #[Route('/feed', name: 'app_feed', methods: ['GET', 'POST'])]
     public function index(
-        Request $request,
-        TweetsRepository $tweetRepository,
+        Request                $request,
+        TweetsRepository       $tweetRepository,
         EntityManagerInterface $em
-    ): Response {
+    ): Response
+    {
         $user = $this->getUser();
 
         if ($request->isMethod('POST') && $request->request->get('content')) {
@@ -70,34 +71,11 @@ final class FeedController extends AbstractController
             throw $this->createAccessDeniedException("Vous ne pouvez pas supprimer ce tweet.");
         }
 
-        if ($this->isCsrfTokenValid('delete'.$tweet->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $tweet->getId(), $request->request->get('_token'))) {
             $em->remove($tweet);
             $em->flush();
         }
 
         return $this->redirectToRoute('app_feed');
     }
-    #[Route('/profile/update-email', name: 'app_profile_update_email', methods: ['POST'])]
-    #[IsGranted('ROLE_USER')]
-    public function updateEmail(Request $request, EntityManagerInterface $em, UserRepository $userRepository): Response
-    {
-        /** @var \App\Entity\User $user */
-        $user = $this->getUser();
-        $newEmail = $request->request->get('email');
-
-        if ($newEmail && $newEmail !== $user->getEmail()) {
-            $existingUser = $userRepository->findOneBy(['email' => $newEmail]);
-
-            if ($existingUser) {
-                $this->addFlash('error', 'Cet email est déjà associé à un autre compte.');
-            } else {
-                $user->setEmail($newEmail);
-                $em->flush();
-                $this->addFlash('success', 'Email mis à jour !');
-            }
-        }
-
-        return $this->redirectToRoute('app_profile');
-    }
 }
-
