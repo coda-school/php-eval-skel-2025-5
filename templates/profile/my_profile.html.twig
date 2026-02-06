@@ -11,7 +11,6 @@
         <div class="avatar"></div>
 
         <div class="profile-info">
-            {# Formulaire pour changer le pseudo #}
             <form action="{{ path('app_profile_update_username') }}" method="POST" style="margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">@</span>
                 <input
@@ -43,7 +42,6 @@
                 </button>
             </form>
 
-            {# Formulaire dynamique pour la bio #}
             <form action="{{ path('app_profile_update_bio') }}" method="POST" style="margin-bottom: 20px;">
                 <textarea
                     name="bio"
